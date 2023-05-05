@@ -107,6 +107,7 @@
             this.message = data.message;
             this.successful = true;
             this.loading = false;
+            this.$router.push("/posts");
           },
           (error) => {
             this.message =
