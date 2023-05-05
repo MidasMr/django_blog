@@ -17,6 +17,11 @@
         </p>
       </div>
     </article>
+    <ul class="pagination justify-content-center">
+      <li class="page-item" ><button class="btn btn-primary" :class="{'disabled': !showPrevButton}" @click="loadPrev()">Предыдущая страница</button></li>
+      <li class="page-item"><a class="page-link">Текущая страница: {{ currnent_page }}</a></li>
+      <li class="page-item" ><button class="btn btn-primary" :class="{'disabled': !showNextButton}" @click="loadNext()">Следуюущая страница</button></li>
+    </ul>
   </div>
 </div>
 </template>
@@ -27,17 +32,39 @@
         data() {
             return {
                 posts: [],
-                next_page: '',
-                previous_page: ''
+                currnent_page: 1,
+                showNextButton: false,
+                showPrevButton: false
             }
         },
         methods: {
+            loadNext() {
+                this.currnent_page += 1
+                this.getData()
+            },
+            loadPrev() {
+                this.currnent_page -= 1
+                this.getData()
+            },
             async getData() {
                 try {
-                    const response = await this.$http.get('http://127.0.0.1:8000/api/posts/');
-                    this.posts = response.data.results;
-                    this.next_page = response.data.next;
-                    this.previous_page = response.data.previous;
+                    await fetch(`http://127.0.0.1:8000/api/posts/?page=${this.currnent_page}`)
+                        .then(response => {
+                            return response.json()
+                        })
+                        .then(data => {
+                            if (data.next) {
+                                this.showNextButton = true
+                            } else {
+                                this.showNextButton = false
+                            }
+                            if (data.previous) {
+                                this.showPrevButton = true
+                            } else {
+                                this.showPrevButton = false
+                            }
+                            this.posts = data.results;
+                        })
                 } catch (error) {
                     console.log(error);
                 }
@@ -51,9 +78,9 @@
                 return this.$store.state.auth.user;
             }
         },
-        created() {
-            this.getData();
-        }
+        mounted() {
+            this.getData()
+        },
     }
 </script>
 

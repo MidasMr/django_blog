@@ -31,9 +31,8 @@ Linux, Mac OS
 source venv/bin/activate
 ```
 
-```
 Обновить pip до последней версии
-
+```
 python -m pip install --upgrade pip
 ```
 
@@ -45,13 +44,9 @@ pip install -r requirements.txt
 
 ### Шаблон заполненния .env файла
 ```
-DB_ENGINE= <Имя движка БД>
-DB_NAME= <Имя БД>
-POSTGRES_USER= <Имя юзера для БД> 
-POSTGRES_PASSWORD= <Пароль юзера БД>
-DB_HOST= <Хост БД>
-DB_PORT= <Порт БД>
+SECRET_KEY= <Секретный ключ django>
 ```
+
 ### Запуск приложения
 
 Запуск backend django
@@ -85,11 +80,22 @@ python manage.py runserver
 Переходим в директорию с проектом
 
 Переходим в директорию с frontend vue
+
 ```
 cd frontend
+```
+
+Setup vue
+```
+npm install
 ```
 
 Запустить приложение в dev режиме
 ```
 npm run serve
+```
+
+Перейти в браузере по ссылке
+```
+http://localhost:8080/ 
 ```

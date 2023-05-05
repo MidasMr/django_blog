@@ -17,4 +17,4 @@ app
   .component('MyFooter', footer)
   .use(router)
   .use(store)
-app.mount('#app')
+  .mount('#app')

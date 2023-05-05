@@ -76,6 +76,7 @@ export default {
       }
     },
     created() {
+        document.title = 'Профиль';
         this.getCurrentUser();
     }
 };

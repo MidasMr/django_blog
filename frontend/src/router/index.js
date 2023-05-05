@@ -1,6 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
 
-
 import Login from '../components/Login'
 import Register from "../components/Register.vue";
 import Posts from '../components/Posts'
@@ -30,11 +29,14 @@ router.beforeEach((to, from, next) => {
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
 
+    document.title = to.meta.title || 'MidasBlog';
+
     if (authRequired && !loggedIn) {
       next('/login');
     } else {
       next();
     }
 });
+
 
 export default router;
